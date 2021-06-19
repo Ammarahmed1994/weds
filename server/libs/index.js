@@ -3,17 +3,22 @@ const ObjectId = require('mongodb').ObjectID;
 
 //get list
 exports.getBlogList = () => {
-  MongoClient.connect('mongodb://localhost', function (err, client) {
-  if (err) throw err;
 
-  const db = client.db('weds');
-
-  db.collection('blogs').find({}).toArray( function (findErr, result) {
-    if (findErr) throw findErr;
-    console.log(result);
-    client.close();
+  return new Promise(async (resolve, reject) => { //eslint-disable-line
+    try {
+      MongoClient.connect('mongodb://localhost', async function (err, client) {
+        if (err) throw err;
+      
+        const db = client.db('weds');
+        const blogs = await db.collection('blogs').find({}).toArray();
+        resolve(blogs)
+    }) 
+    } catch (err) {
+      reject(err);
+    }
   });
-})}; 
+
+}; 
 
 //create blog
 exports.createBlog = () => {
