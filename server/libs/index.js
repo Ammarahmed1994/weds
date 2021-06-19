@@ -6,10 +6,10 @@ exports.getBlogList = () => {
 
   return new Promise(async (resolve, reject) => { //eslint-disable-line
     try {
-      MongoClient.connect('mongodb://localhost', async function (err, client) {
+      MongoClient.connect('mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', async function (err, client) {
         if (err) throw err;
       
-        const db = client.db('weds');
+        const db = client.db('wedsdb');
         const blogs = await db.collection('blogs').find({}).toArray();
         resolve(blogs)
     }) 
@@ -75,3 +75,22 @@ exports.updateBlog = () =>{
     });
   });
 }
+
+
+// const MongoClient = require('mongodb').MongoClient;
+ 
+// // Replace the following with your Atlas connection string                                                                                                                                        
+// const url = "mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority";
+// const client = new MongoClient(url);
+// async function run() {
+//     try {
+//         await client.connect();
+//         console.log("Connected correctly to server");
+//     } catch (err) {
+//         console.log(err);
+//     }
+//     finally {
+//         await client.close();
+//     }
+// }
+// run().catch(console.dir);
