@@ -4,6 +4,7 @@ import { BlogService } from '../shared/services/blog.service';
 
 import { Card, Button, Container, Jumbotron } from 'react-bootstrap';
 import ReadMoreReact from 'read-more-react';
+import Dashboard from '../Dashboard/dashboard';
 
 
 class BlogList extends Component {
@@ -27,11 +28,17 @@ class BlogList extends Component {
         this.setState({ redirect: `/blog/${id}/details` });
     }
 
+    async DashboardRedirect() {
+        this.setState({ redirect: `/` });
+    }
+
+
     render() {
         const blogs = this.state.blogs;
         const redirect = this.state.redirect;
         return (
             <div >
+                <Button variant="dark" size="lg" block onClick={() => this.DashboardRedirect()}>Home Page</Button>
                 <Jumbotron fluid>
                     <h1 style={{ textAlign: "center" }}>List of Blogs</h1>
                 </Jumbotron>

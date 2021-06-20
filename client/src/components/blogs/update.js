@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { Form, Button, Container, Card, Modal, Row } from 'react-bootstrap';
+import { Form, Button, Container, Card, Modal, Row, Jumbotron } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 import moment from 'moment';
@@ -19,10 +19,8 @@ export default function BlogUpdate(props) {
     const handleShow = () => setShow(true);
 
     const handleDeleteClose = () => setDeleteShow(false);
-    const handleDeleteShow = () =>{
-        setDeleteShow(true);
-        console.log(deleteShow)
-    } 
+    const handleDeleteShow = () => setDeleteShow(true);
+
 
     const id = props.match.params.id;
 
@@ -80,17 +78,25 @@ export default function BlogUpdate(props) {
         }
     }
 
-const onDelete = async () => {
-    try {
-        await BlogService.deleteBlog(id);
-        setRedirect(`/blog/list`);
-    } catch (error) {
-        console.log(error)
+    const onDelete = async () => {
+        try {
+            await BlogService.deleteBlog(id);
+            setRedirect(`/blog/list`);
+        } catch (error) {
+            console.log(error)
+        }
     }
-}
+
+    const handleClick = () => {
+        setRedirect(`/`);
+    }
 
     return (
         <>
+            <Button variant="dark" size="lg" block onClick={handleClick}>Home Page</Button>
+            <Jumbotron fluid>
+                <h1 style={{ textAlign: "center" }}>{blog.article_title} Details</h1>
+            </Jumbotron>
             <Container>
                 <Card style={{ width: '70rem' }}>
                     <Card.Title>{blog.article_title}</Card.Title>
@@ -102,8 +108,8 @@ const onDelete = async () => {
                             <Form.Control as="textarea" rows={3} defaultValue={blog.article_body} />
                         </Form.Group>
                         <Row>
-                        <Button variant="primary" onClick={handleShow}>open Update Modal</Button>
-                        <Button variant="danger" onClick={handleDeleteShow}>open Delete Modal</Button>
+                            <Button variant="primary" onClick={handleShow}>open Update Modal</Button>
+                            <Button variant="danger" onClick={handleDeleteShow}>open Delete Modal</Button>
                         </Row>
                     </Card.Body>
                 </Card>
@@ -158,8 +164,8 @@ const onDelete = async () => {
                     : ``
             }
             {
-                deleteShow == true ?  
-                <Modal show={deleteShow} onHide={handleDeleteClose} animation={true}>
+                deleteShow == true ?
+                    <Modal show={deleteShow} onHide={handleDeleteClose} animation={true}>
                         <Modal.Header closeButton>
                             <Modal.Title>Delete {blog.article_title}</Modal.Title>
                         </Modal.Header>

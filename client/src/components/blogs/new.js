@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import moment from 'moment';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Jumbotron } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 import { BlogService } from '../shared/services/blog.service';
@@ -46,8 +46,16 @@ export default function BlogNew() {
         }
     }
 
+    const handleClick = () => {
+        setRedirect(`/`);
+    }
+
     return (
         <>
+            <Button variant="dark" size="lg" block onClick={handleClick}>Home Page</Button>
+            <Jumbotron fluid>
+                <h1 style={{ textAlign: "center" }}>New Blog Page</h1>
+            </Jumbotron>
             <Container>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group controlId="formBasicEmail">
