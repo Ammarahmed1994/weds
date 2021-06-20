@@ -15,3 +15,28 @@ code {
 .dash h1{
   text-align: center;
 }
+
+.card{
+  border: 1px solid rgb(224, 230, 237);
+  box-shadow: rgb(0 0 0 / 5%) 0px 1px 5px;
+  margin-bottom: 30px;
+  padding: 75px 100px;
+}
+
+.card-title.h5{
+  font-size: 2rem;
+  text-align: center;
+}
+
+.card-subtitle{
+  text-align: center;
+}
+
+.read-more-button{
+  color: blue;
+  cursor: pointer;
+}
+
+.row{
+  justify-content: space-between;
+}

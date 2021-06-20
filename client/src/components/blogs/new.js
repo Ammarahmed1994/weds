@@ -8,8 +8,8 @@ import { BlogService } from '../shared/services/blog.service';
 
 export default function BlogNew() {
     const { register, handleSubmit } = useForm();
-    const [ baseImage, setBaseImage ] = useState("");
-    const [ redirect, setRedirect ] = useState(null);
+    const [baseImage, setBaseImage] = useState("");
+    const [redirect, setRedirect] = useState(null);
 
     const uploadImage = async (e) => {
         const file = e.target.files[0];
@@ -33,14 +33,17 @@ export default function BlogNew() {
     };
 
     const onSubmit = async (data) => {
+        try {
+            data.article_date = moment(data.article_date).format('ll');
 
-        data.article_date = moment(data.article_date).format('ll');
+            let newBlog = data;
+            Object.assign(newBlog, { article_image: baseImage })
 
-        let newBlog = data;
-        Object.assign(newBlog, { article_image: baseImage })
-
-        await BlogService.create(newBlog);
-        setRedirect(`/blog/list`)
+            await BlogService.create(newBlog);
+            setRedirect(`/blog/list`)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (

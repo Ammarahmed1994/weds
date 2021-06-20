@@ -18,12 +18,12 @@ export class BlogService {
 
     static async update (blog) {
       try {
-          await axios({
+          const response = await axios({
               method: `PUT`,
-              url: `/api/blog/update`,
+              url: `http://localhost:5000/update`,
               data: { blog }
           });
-
+console.log(`resssss`, response)
           return;
       }
       catch (err) {
@@ -44,11 +44,31 @@ export class BlogService {
         }
       }
 
+      static async getBlogById (id) {
+        try {
+          const response = await axios({
+            method: `GET`,
+            url: `http://localhost:5000/getById`,
+            params: {
+              id: id
+            }
+          });
+
+          return response.data.data.blog[0];
+        } catch (err) {
+          throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
+        }
+      }
+
     static async deleteBlog (id) {
+      console.log(`idddd`,id)
         try {
           await axios({
             method: `DELETE`,
-            url: `/api/blog/${ id }`
+            url: `http://localhost:5000/`,
+            params: {
+              id: id
+            }
           });
     
           return;

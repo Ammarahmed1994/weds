@@ -25,6 +25,24 @@ app.use(cors())
       });
 });
 
+app.put(`/update`, async (req, res) => {
+  await BlogService
+     .updateBlog(req.body.blog)
+     .then((blog) => {
+       res
+         .status(200)
+         .json({
+           status: `SUCCESS`,
+           message: `Successfully updated blog`,
+           data: {blog}
+         });
+     })
+     .catch(err => {
+       console.log('errrrrrrr', err);
+       ErrorHandler.handleServerError(req, err, res);
+     });
+});
+
 app.get(`/list`, async (req, res) => {
  await BlogService
     .getBlogList()
@@ -42,7 +60,26 @@ app.get(`/list`, async (req, res) => {
     });
 });
 
+app.get(`/getById/`, async (req, res) => {
+  await BlogService
+     .getBlogById(req.query.id)
+     .then(blog => {
+       res
+         .status(200)
+         .json({
+           status: `SUCCESS`,
+           message: `Got blog details by Id.`,
+           data: { blog }
+         });
+     })
+     .catch(err => {
+      //  ErrorHandler.handleServerError(req, err, res);
+      console.log(`errrrr`,err)
+     });
+ });
+
 app.delete(``, (req, res) => {
+  console.log(`reqqqqq`, req.query)
   BlogService
     .deleteBlog(
       req.query.id
