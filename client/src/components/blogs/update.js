@@ -150,10 +150,6 @@ export default function BlogUpdate(props) {
                                     defaultValue={moment(blog.article_date).format("YYYY-MM-DD")}
                                 />
                             </Form.Group>
-
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
