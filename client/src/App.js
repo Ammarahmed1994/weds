@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
+import ReactNotification from 'react-notifications-component'
 
 import BlogList from './components/blogs/list';
 import BlogNew from './components/blogs/new';
@@ -8,6 +9,7 @@ import Dashboard from './components/Dashboard/dashboard';
 
 function App() {
   return <>
+  <ReactNotification />
       <BrowserRouter>
         <Route exact path="/" component={Dashboard} />
         <Route path="/blog/new" component={BlogNew} />

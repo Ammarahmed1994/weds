@@ -23,7 +23,7 @@ export class BlogService {
               url: `http://localhost:5000/update`,
               data: { blog }
           });
-console.log(`resssss`, response)
+
           return;
       }
       catch (err) {
@@ -61,7 +61,6 @@ console.log(`resssss`, response)
       }
 
     static async deleteBlog (id) {
-      console.log(`idddd`,id)
         try {
           await axios({
             method: `DELETE`,

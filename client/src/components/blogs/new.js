@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Form, Button, Container, Jumbotron } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
+import {handleSuccess, handleError} from '../shared/utils/Notification';
 import { BlogService } from '../shared/services/blog.service';
 
 export default function BlogNew() {
@@ -40,9 +41,11 @@ export default function BlogNew() {
             Object.assign(newBlog, { article_image: baseImage })
 
             await BlogService.create(newBlog);
+            
+            handleSuccess(`Successfully created blog`);
             setRedirect(`/blog/list`)
         } catch (err) {
-            console.log(err)
+            handleError(new Error(`Failed to create Blog`));
         }
     }
 
@@ -82,7 +85,7 @@ export default function BlogNew() {
                         <Form.Control  {...register("article_date")} type="date" placeholder="Author Name" />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" size="lg" block>
                         Submit
                     </Button>
                 </Form>

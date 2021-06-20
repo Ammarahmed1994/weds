@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { BlogService } from '../shared/services/blog.service';
-
 import { Card, Button, Container, Jumbotron } from 'react-bootstrap';
 import ReadMoreReact from 'read-more-react';
-import Dashboard from '../Dashboard/dashboard';
+
+import { BlogService } from '../shared/services/blog.service';
+import {handleSuccess, handleError} from '../shared/utils/Notification';
 
 
 class BlogList extends Component {
@@ -17,11 +17,16 @@ class BlogList extends Component {
         };
     }
     async componentDidMount() {
-        const blogs = await BlogService.getBlogList();
-        this.setState({
-            blogs
-        })
-        console.log(`hfjsdhf`, this.state.blogs);
+        try {
+            const blogs = await BlogService.getBlogList();
+            this.setState({
+                blogs
+            })
+            handleSuccess(`Successfully got Blog list`);
+        } catch (err) {
+            handleError(new Error(`Failed to get Blog list`));
+        }
+
     }
 
     async handleClick(id) {
@@ -31,7 +36,6 @@ class BlogList extends Component {
     async DashboardRedirect() {
         this.setState({ redirect: `/` });
     }
-
 
     render() {
         const blogs = this.state.blogs;

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { Form, Button, Container, Card, Modal, Row, Jumbotron } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-
 import moment from 'moment';
+
+import {handleSuccess, handleError} from '../shared/utils/Notification';
 import { BlogService } from '../shared/services/blog.service';
 
 
@@ -31,7 +32,7 @@ export default function BlogUpdate(props) {
                 setBlog(data);
             }
             catch (err) {
-                console.log(err);
+                handleError(new Error(`Failed to get Blog data`));
             }
         };
         fetchData();
@@ -72,18 +73,21 @@ export default function BlogUpdate(props) {
             Object.assign(updatedBlog, { article_image: baseImage ? baseImage : blog.article_image })
 
             await BlogService.update(updatedBlog);
+            
+            handleSuccess(`Successfully updated blog`);
             setRedirect(`/blog/list`);
         } catch (error) {
-            console.log(error)
+            handleError(new Error(`Failed to update Blog`));
         }
     }
 
     const onDelete = async () => {
         try {
             await BlogService.deleteBlog(id);
+            handleSuccess(`Successfully deleted blog`);
             setRedirect(`/blog/list`);
         } catch (error) {
-            console.log(error)
+            handleError(new Error(`Failed to delete Blog`));
         }
     }
 

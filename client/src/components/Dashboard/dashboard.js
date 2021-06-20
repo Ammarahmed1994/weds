@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Jumbotron, Container, Button } from 'react-bootstrap';
 
+
 class Dashboard extends Component {
 
     constructor() {
@@ -28,7 +29,6 @@ class Dashboard extends Component {
                     <Button variant="primary" size="lg" block onClick={() => this.handleClick(`new`)}>Create Blog</Button>
                     <Button variant="secondary" size="lg" block onClick={() => this.handleClick(`list`)}>View Blog List</Button>
                 </div>
-
                 {
                     redirect && <Redirect to={redirect} />
                 }
