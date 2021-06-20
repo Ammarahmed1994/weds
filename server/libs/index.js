@@ -4,7 +4,7 @@ const ObjectId = require('mongodb').ObjectID;
 //get list
 exports.getBlogList = () => {
 
-  return new Promise(async (resolve, reject) => { //eslint-disable-line
+  return new Promise(async (resolve, reject) => { 
     try {
       MongoClient.connect('mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', async function (err, client) {
         if (err) throw err;
@@ -21,25 +21,30 @@ exports.getBlogList = () => {
 }; 
 
 //create blog
-exports.createBlog = () => {
-  MongoClient.connect('mongodb://localhost', function (err, client) {
-  if (err) throw err;
+exports.createBlog = (blog) => {
+  return new Promise(async (resolve, reject) => { 
+    try {
+      MongoClient.connect('mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
+        if (err) throw err;
+      
+        const db = client.db('wedsdb');
+      
+       const newBlog =  db.collection('blogs').insertOne({
+        "author_name" : blog.author_name,
+        "article_title" : blog.article_title,
+        "article_image" : blog.article_image,
+        "article_body" : blog.article_body,
+        "article_date" : blog.article_date,
+        "deleted_at": blog.deleted_at ? blog.deleted_at : null
+        });
+        resolve(newBlog);
 
-  const db = client.db('weds');
-
-  db.collection('blogs').insertOne({
-  "author_name" : "Ammar Ahmed3",
-  "article_title" : "Blog 3",
-  "article_image" : "https://source.unsplash.com/aZjw7xI3QAA/1144x763",
-  "article_body" : "Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit33",
-  "article_date" : "June 18, 2021"
-
-  }, function (findErr, result) {
-    if (findErr) throw findErr;
-    console.log(result);
-    client.close();
-  });
-}); }
+    }) 
+   }  catch (err) {
+      reject(err)
+    };
+});
+}
 
 //delete blog
 exports.deleteBlog = () => {

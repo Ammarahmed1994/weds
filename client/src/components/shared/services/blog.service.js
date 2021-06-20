@@ -5,7 +5,7 @@ export class BlogService {
         try {
             await axios({
                 method: `POST`,
-                url: `/api/blog/create`,
+                url: `http://localhost:5000/create`,
                 data: { blog }
             });
 
@@ -15,6 +15,21 @@ export class BlogService {
             throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
         }
     }
+
+    static async update (blog) {
+      try {
+          await axios({
+              method: `PUT`,
+              url: `/api/blog/update`,
+              data: { blog }
+          });
+
+          return;
+      }
+      catch (err) {
+          throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
+      }
+  }
 
     static async getBlogList () {
         try {

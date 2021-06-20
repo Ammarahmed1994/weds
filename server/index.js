@@ -9,9 +9,9 @@ const { ErrorHandler } = require(`../server/utils/ErrorHandler`);
 app.use(bodyParser.json());
 app.use(cors())
 
-  app.post(`/create`, (req, res) => {
-    BlogService
-      .createBlog(req.blog)
+  app.post(`/create`, async (req, res) => {
+   await BlogService
+      .createBlog(req.body.blog)
       .then(() => {
         res
           .status(200)
