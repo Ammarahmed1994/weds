@@ -38,7 +38,6 @@ app.put(`/update`, async (req, res) => {
          });
      })
      .catch(err => {
-       console.log('errrrrrrr', err);
        ErrorHandler.handleServerError(req, err, res);
      });
 });
@@ -73,13 +72,11 @@ app.get(`/getById/`, async (req, res) => {
          });
      })
      .catch(err => {
-      //  ErrorHandler.handleServerError(req, err, res);
-      console.log(`errrrr`,err)
+       ErrorHandler.handleServerError(req, err, res);
      });
  });
 
 app.delete(``, (req, res) => {
-  console.log(`reqqqqq`, req.query)
   BlogService
     .deleteBlog(
       req.query.id
