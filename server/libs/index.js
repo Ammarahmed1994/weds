@@ -6,7 +6,7 @@ exports.getBlogList = () => {
 
   return new Promise(async (resolve, reject) => { 
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', async function (err, client) {
+      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', async function (err, client) {
         if (err) throw err;
       
         const db = client.db('wedsdb');
@@ -24,7 +24,7 @@ exports.getBlogList = () => {
 exports.createBlog = (blog) => {
   return new Promise(async (resolve, reject) => { 
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
+      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
         if (err) throw err;
       
         const db = client.db('wedsdb');
@@ -48,20 +48,24 @@ exports.createBlog = (blog) => {
 
 //delete blog
 exports.deleteBlog = () => {
-  MongoClient.connect('mongodb://localhost', function (err, client) {
-    if (err) throw err;
-  
-    const db = client.db('weds');
-  
-    db.collection('blogs').remove({
-    "_id" : ObjectId("60cb587083a2c2a474672a44")
-    }, function (findErr, result) {
-      if (findErr) throw findErr;
-      console.log(result);
-      client.close();
-    });
-  }); 
-} 
+  return new Promise(async (resolve, reject) => { 
+    try {
+      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
+        if (err) throw err;
+    
+      const db = client.db('wedsdb');
+    
+      const deleteId = db.collection('blogs').findOneAndUpdate(
+        {"_id" : blog._id},
+        { $set: { deleted_at: new Date()}}
+    ) 
+    resolve(deleteId);
+
+   })  } catch (err) {
+      reject(err)
+    };
+});
+}
 
 //update blog
 exports.updateBlog = () =>{
@@ -80,22 +84,3 @@ exports.updateBlog = () =>{
     });
   });
 }
-
-
-// const MongoClient = require('mongodb').MongoClient;
- 
-// // Replace the following with your Atlas connection string                                                                                                                                        
-// const url = "mongodb+srv://wedsApp:Mummymero1994@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority";
-// const client = new MongoClient(url);
-// async function run() {
-//     try {
-//         await client.connect();
-//         console.log("Connected correctly to server");
-//     } catch (err) {
-//         console.log(err);
-//     }
-//     finally {
-//         await client.close();
-//     }
-// }
-// run().catch(console.dir);
