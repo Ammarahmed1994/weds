@@ -35,7 +35,7 @@ export class BlogService {
         try {
           const response = await axios({
             method: `GET`,
-            url: `https://weds-app.herokuapp.com/list`
+            url: `http://localhost:5000/list`
           });
 
           return response.data.data.blogs;
