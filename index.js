@@ -97,13 +97,13 @@ app.delete(``, (req, res) => {
     });
 });
 console.log(process.env.MONGODB_URI);
-const PORT = process.env.PORT || 5000;
+;
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 5000), () => {
   console.log(`app running on port ${PORT}`)
 };
 
