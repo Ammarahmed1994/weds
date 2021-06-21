@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectID;
 exports.getBlogList = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      MongoClient.connect(process.env.MONGODB_URI, async function (err, client) {
+      MongoClient.connect("mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority", async function (err, client) {
         if (err) throw err;
 
         const db = client.db('wedsdb');
