@@ -1,13 +1,16 @@
+require('dotenv').config();
 const express = require('express');
-var cors = require('cors')
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const app = express();
+const path = require("path")
 
-const BlogService = require(`../server/libs/index`)
-const { ErrorHandler } = require(`../server/utils/ErrorHandler`);
+const BlogService = require(`./libs/index`)
+const { ErrorHandler } = require(`./utils/ErrorHandler`);
 
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
+app.use(express.static(path.join(__dirname, "client", "build")));
 
   app.post(`/create`, async (req, res) => {
    await BlogService
@@ -93,8 +96,12 @@ app.delete(``, (req, res) => {
       ErrorHandler.handleServerError(req, err, res);
     });
 });
-
+console.log(process.env.MONGODB_URI);
 const PORT = process.env.PORT || 5000;
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`app running on port ${PORT}`)

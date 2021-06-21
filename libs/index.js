@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectID;
 exports.getBlogList = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', async function (err, client) {
+      MongoClient.connect(process.env.MONGODB_URI, async function (err, client) {
         if (err) throw err;
 
         const db = client.db('wedsdb');
@@ -22,7 +22,7 @@ exports.getBlogList = () => {
 exports.getBlogById = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', async function (err, client) {
+      MongoClient.connect(process.env.MONGODB_URI, async function (err, client) {
         if (err) throw err;
 
         const db = client.db('wedsdb');
@@ -40,7 +40,7 @@ exports.getBlogById = (id) => {
 exports.createBlog = (blog) => {
   return new Promise(async (resolve, reject) => {
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
+      MongoClient.connect(process.env.MONGODB_URI, function (err, client) {
         if (err) throw err;
 
         const db = client.db('wedsdb');
@@ -66,7 +66,7 @@ exports.createBlog = (blog) => {
 exports.updateBlog = (blog) => {
   return new Promise(async (resolve, reject) => {
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
+      MongoClient.connect(process.env.MONGODB_URI, function (err, client) {
         if (err) throw err;
 
         const db = client.db('wedsdb');
@@ -95,7 +95,7 @@ exports.updateBlog = (blog) => {
 exports.deleteBlog = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      MongoClient.connect('mongodb+srv://wedsApp:ammar123@cluster0.2ljp2.mongodb.net/wedsdb?retryWrites=true&w=majority', function (err, client) {
+      MongoClient.connect(process.env.MONGODB_URI, function (err, client) {
         if (err) throw err;
 
         const db = client.db('wedsdb');
