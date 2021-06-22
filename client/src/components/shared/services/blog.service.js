@@ -5,7 +5,7 @@ export class BlogService {
         try {
             await axios({
                 method: `POST`,
-                url: `http://localhost:5000/create`,
+                url: `https://weds-app.herokuapp.com/create`,
                 data: { blog }
             });
 
@@ -20,7 +20,7 @@ export class BlogService {
       try {
           const response = await axios({
               method: `PUT`,
-              url: `http://localhost:5000/update`,
+              url: `https://weds-app.herokuapp.com/update`,
               data: { blog }
           });
 
@@ -35,7 +35,7 @@ export class BlogService {
         try {
           const response = await axios({
             method: `GET`,
-            url: `http://localhost:5000/list`
+            url: `https://weds-app.herokuapp.com/list`
           });
 
           return response.data.data.blogs;
@@ -48,7 +48,7 @@ export class BlogService {
         try {
           const response = await axios({
             method: `GET`,
-            url: `http://localhost:5000/getById`,
+            url: `https://weds-app.herokuapp.com/getById`,
             params: {
               id: id
             }
@@ -64,7 +64,7 @@ export class BlogService {
         try {
           await axios({
             method: `DELETE`,
-            url: `http://localhost:5000/`,
+            url: `https://weds-app.herokuapp.com/`,
             params: {
               id: id
             }
