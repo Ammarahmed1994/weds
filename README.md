@@ -1,5 +1,5 @@
 # weds
-A small application that lets the user view, create, update ad delete new blogs
+A small application that lets the user view, create, update and delete blogs
 
 # Technologies
 ReactJs, NodeJs, MongoDb Atlas
